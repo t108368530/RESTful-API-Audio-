@@ -12,11 +12,13 @@
 │   └── redis            ＃Redis 的 Docker配置資料夾
 |        ├── config  
 |        │   └── redis.conf      #Redis-Server配置檔案
+|        ├── redis-socket
+|        │   └── redis.sock #Redis sock 連接
 |        └── docker-compose.yml  #Redis-Server 的 docker-compose 啟動腳本
-├── img                  ＃本md內的圖片放置資料夾
+├── img                  ＃本MD內的圖片放置資料夾
 ├── poetry.lock
 ├── pyproject.toml       ＃專案 Lib 配置檔案
-├── README.md            ＃本md
+├── README.md            ＃本MD
 ├── src
 │   └── webservice       #本專案
 └── tests                ＃專案單元測試（（本專案沒有使用
