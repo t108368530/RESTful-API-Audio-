@@ -9,7 +9,7 @@ from time import sleep
 def load_model():
 	with open('/home/alien/webservice/src/webservice/nn_model/model_2.json','r') as jsonf:
 		model=tf.keras.models.model_from_json(jsonf.read())
-		model.load_weights('/home/alien/webservice/src/webservice/nn_model/model_1.h5')
+		model.load_weights('/home/alien/webservice/src/webservice/nn_model/model_2.h5')
 		return model
 
 

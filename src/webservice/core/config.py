@@ -12,8 +12,11 @@ class Settings(BaseSettings):
     DEV_MOD: Optional[str] = None
     REDIS_HOST: Optional[str] = None
     REDIS_PASSWORD: Optional[str] = None
+    REDUS_UNIX_SOCKET_PATH: Optional[str] = None
     REDIS_PORT: Optional[str] = None
     QUEUE_NAME: Optional[str] = None
+    QUEUE_NAME_2: Optional[str] = None
+    
 
     class Config:
         env_file: str = ".env"
@@ -42,6 +45,12 @@ logger.configure(
 message_queue = StrictRedis(
     host=settings.REDIS_HOST,
     port=settings.REDIS_PORT,
+    password=settings.REDIS_PASSWORD,
+    db=0,
+)
+
+message_queue2 = StrictRedis(
+    unix_socket_path=settings.REDUS_UNIX_SOCKET_PATH,
     password=settings.REDIS_PASSWORD,
     db=0,
 )

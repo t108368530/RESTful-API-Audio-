@@ -13,6 +13,7 @@ services:
       net.core.somaxconn: '65535'
     volumes:
       - ./config/redis.conf:/usr/local/redis/redis.conf:Z
+      - ./redis-socket:/tmp:Z
     command:
       - /usr/local/redis/redis.conf
 
