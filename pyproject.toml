@@ -19,6 +19,7 @@ uvloop = "^0.14.0"
 httptools = "^0.1.1"
 python-multipart = "^0.0.5"
 redis = "^3.5.3"
+pydub = "^0.24.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

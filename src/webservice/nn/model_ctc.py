@@ -156,8 +156,10 @@ def classify_process():
 			for i, _ in enumerate(decoded_out):
 				str_decoded_out.append("".join([index_map[c] for c in decoded_out[i] if not c == -1]))
 			# print(str_decoded_out)
-			message_queue2.set(ID, ujson.dumps({"res": str_decoded_out[0]}))
+			# message_queue2.set(ID, ujson.dumps({"res": str_decoded_out[0]}))
 			message_queue2.publish(ID, ujson.dumps({"res": str_decoded_out[0]}))
+			message_queue2.publish("PPT_COMMAND", str_decoded_out[0])
+
 
             # 	yp=np.argmax(model.predict(feature.reshape(1, 277, 1)))
 

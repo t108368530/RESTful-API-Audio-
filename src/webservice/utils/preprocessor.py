@@ -1,5 +1,5 @@
 import numpy as np
-
+from pydub import AudioSegment
 import librosa
 
 
@@ -61,13 +61,18 @@ def extract_Features(data) -> np.ndarray:
     return np.array(ext_features)
 
 
-def make_spec(data, st=4)-> np.ndarray:
-    sig, rate = librosa.load(data, sr=16000)
+def make_spec(data, st=4) -> np.ndarray:
+    sig, _ = librosa.load(data, sr=16000)
+    remove_silence_res = []
+    for item in librosa.effects.split(sig, frame_length=512, top_db=29):
+        remove_silence_res.append(sig[item[0] : item[1]])
+    sig = np.concatenate(remove_silence_res, axis=0)
     if len(sig) < 16000:  # pad shorter than 1 sec audio with ramp to zero
         sig = np.pad(sig, (0, 16000 - len(sig)), "linear_ramp")
+
     D = librosa.amplitude_to_db(
         librosa.stft(sig[:16000], n_fft=512, hop_length=128, center=False), ref=np.max
     )
     S = librosa.feature.melspectrogram(S=D, n_mels=85).T
-    S = np.ascontiguousarray(S,dtype=np.float32)
-    return np.expand_dims(S,-1)+1.3
+    S = np.ascontiguousarray(S, dtype=np.float32)
+    return np.expand_dims(S, -1) + 1.3

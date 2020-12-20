@@ -5,7 +5,7 @@ from typing import Optional
 from loguru import logger
 from pydantic import BaseSettings
 from webservice.core.logging import InterceptHandler
-from redis import StrictRedis
+from redis import StrictRedis ,ConnectionPool
 
 
 class Settings(BaseSettings):
@@ -42,6 +42,7 @@ logger.configure(
     ]
 )
 
+
 message_queue = StrictRedis(
     host=settings.REDIS_HOST,
     port=settings.REDIS_PORT,
@@ -52,5 +53,14 @@ message_queue = StrictRedis(
 message_queue2 = StrictRedis(
     unix_socket_path=settings.REDUS_UNIX_SOCKET_PATH,
     password=settings.REDIS_PASSWORD,
+    max_connections=2000,
     db=0,
 )
+
+# pool=ConnectionPool(
+#     unix_socket_path=settings.REDUS_UNIX_SOCKET_PATH,
+#     password=settings.REDIS_PASSWORD,
+#     max_connections=10000,
+#     db=0,
+# )
+# message_queue3 = StrictRedis(connection_pool=pool)
