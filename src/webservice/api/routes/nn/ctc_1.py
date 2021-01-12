@@ -40,7 +40,7 @@ async def get_res_predict(
                 res = ujson.loads(res)
                 break
             elif responses == 1:
-                input_data.seek(0)
+                await input_data.seek(0)
                 input_data = await input_data.read()
                 with io.BytesIO() as mem_temp_file:
                     mem_temp_file.write(input_data)

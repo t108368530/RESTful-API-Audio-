@@ -64,7 +64,7 @@ def extract_Features(data) -> np.ndarray:
 def make_spec(data, st=4) -> np.ndarray:
     sig, _ = librosa.load(data, sr=16000)
     remove_silence_res = []
-    for item in librosa.effects.split(sig, frame_length=512, top_db=29):
+    for item in librosa.effects.split(sig, frame_length=512, top_db=40):
         remove_silence_res.append(sig[item[0] : item[1]])
     sig = np.concatenate(remove_silence_res, axis=0)
     if len(sig) < 16000:  # pad shorter than 1 sec audio with ramp to zero
@@ -75,4 +75,4 @@ def make_spec(data, st=4) -> np.ndarray:
     )
     S = librosa.feature.melspectrogram(S=D, n_mels=85).T
     S = np.ascontiguousarray(S, dtype=np.float32)
-    return np.expand_dims(S, -1) + 1.3
+    return np.expand_dims(S, -1) + 1.29
